@@ -1,7 +1,21 @@
 {
     "name": "micropython-minimal",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "Paweł Bura",
+    "author": "Paweł Bura",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/pawelbura/vscode-extension-micropython-minimal.git"
+    },
+    "description": "Minimal VSCode plugin to handle micropython. Just 3 functions availble (RUN, REPL, SEND, as buttons on editor tittle bar. Plugin uses mpremote tool - it's simple wrapper of mpremote CLI commands. ",
+    "keywords": [
+        "micropython",
+        "REPL",
+        "ESP32",
+        "mpremote"
+    ],
+    "icon": "media/micropython-minimal.png",
     "engines": {
         "vscode": "^1.89.0"
     },
@@ -18,7 +32,7 @@
             },
             {
                 "command": "extension.micropythonREPL",
-                "title": "Connect and open Micropython REPL in terminal",
+                "title": "Connect and open Micropython REPL in terminal (press Ctrl+C to interrupt running program)",
                 "icon": {
                     "light": "media/light/micropython-minimal-repl-light.svg",
                     "dark": "media/dark/micropython-minimal-repl-dark.svg"
@@ -33,29 +47,48 @@
                 }
             }
         ],
+        "submenus": [
+            {
+                "id": "micropython-minimal-submenu",
+                "label": "micropython-minimal",
+                "icon": {
+                    "light": "media/light/micropython-minimal-run-light.svg",
+                    "dark": "media/dark/micropython-minimal-run-dark.svg"
+                }
+
+            }
+        ],
         "menus": {
-            "editor/title": [
+            "micropython-minimal-submenu": [
                 {
                     "when": "resourceLangId == python",
                     "command": "extension.micropythonRUN",
-                    "group": "navigation"
+                    "group": "mmgroup@1"
                 },
                 {
                     "when": "resourceLangId == python",
                     "command": "extension.micropythonREPL",
-                    "group": "navigation"
+                    "group": "mmgroup@2"
                 },
                 {
                     "when": "resourceLangId == python",
                     "command": "extension.micropythonSEND",
-                    "group": "navigation"
-                },
+                    "group": "mmgroup@3"
+                }
+            ],
+            "editor/title": [
                 {
                     "when": "resourceLangId == python",
-                    "command": "extension.dropdown",
-                    "group": "navigation",
-                    "title": "Moje Polecenia",
-                    "submenu": "micropython-minimal.submenu"
+                    "submenu": "micropython-minimal-submenu",
+                    "group": "navigation@4"
+                }
+
+            ],
+            "editor/title/run": [
+                {
+                    "when": "resourceLangId == python",
+                    "submenu": "micropython-minimal-submenu",
+                    "group": "mmgroup"
                 }
             ],
             "editor/title/context": [
@@ -86,19 +119,7 @@
                     "when": "editorTextFocus"
                 }
             ]
-        },
-        "submenus": [
-            {
-                "id": "micropython-minimal.submenu",
-                "label": "micropython-minimal",
-                "commands": [
-                    "extension.micropythonRUN",
-                    "extension.micropythonREPL",
-                    "extension.micropythonSEND"
-                ]
-            }
-        ]
-    },
+        }    },
     "scripts": {
         "compile": "tsc -p ./"
     },
@@ -106,9 +127,5 @@
         "@types/node": "^20.12.11",
         "@types/vscode": "^1.89.0",
         "typescript": "^4.9.5"
-    },
-    "description": "Minimal VSCode plugin to handle micropython. Just 3 functions (RUN, REPL, SEND, as buttons on editor tittle bar. Plugin uses mpremote tool, see ",
-    "keywords": [],
-    "author": "",
-    "license": "ISC"
+    }
 }

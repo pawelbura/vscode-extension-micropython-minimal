@@ -23,7 +23,7 @@ export function activate(context: vscode.ExtensionContext) {
             vscode.window.showErrorMessage('Nie ma otwartego pliku!');
             return;
         }
-        const terminal = vscode.window.createTerminal(`mpremote`);
+        const terminal = vscode.window.createTerminal(`mpremote repl`);
         terminal.show(true);
         terminal.sendText(`mpremote`);
     });
